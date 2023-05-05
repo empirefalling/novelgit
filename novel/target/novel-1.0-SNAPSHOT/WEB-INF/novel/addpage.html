@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>更新章节</title>
+    <link th:href="@{/static/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/static/css/bootstrap1.css}" rel="stylesheet">
+    <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet" />
+    <script th:src="@{/static/js/jquery-1.9.1.js}"></script>
+    <script th:src="@{/static/js/bootstrap.js}"></script>
+
+    <style rel="stylesheet">
+        input{
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <div style="text-align: center;width: 1000px;margin: 0 auto">
+        <div style="width: 1000px;margin: 100px auto">
+            <h1>请输入您的书籍信息</h1>
+            <form method="post" th:action="@{'/book/addpage/'+${username}+'/'+${bookid}}" style="text-align: center" >
+                <br/><br/>
+                <label for="bookid">小说I&nbsp;&nbsp;&nbsp;D</label>
+                <input type="text" class="form-control" onfocus="this.blur()" id="bookid" th:placeholder="${bookid}">
+
+                <label for="chapter">章节名称</label>
+                <input type="text" class="form-control" id="chapter" name="chapter" placeholder="请输入章节名">
+                <br/><br/>
+
+
+
+                正&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文:<br/><br/>
+                <textarea style="height: 600px;" placeholder="正文输入······" class="form-control" id="page" name="page" ></textarea>
+
+                <br/><br/>
+                <input style="padding: 6px 12px;float: right;margin-right: 100px;border:#ccc 1px solid;" type="submit" class="btn btn-default" value="提交" />
+
+
+
+            </form>
+        </div>
+
+
+
+    </div>
+</body>
+</html>

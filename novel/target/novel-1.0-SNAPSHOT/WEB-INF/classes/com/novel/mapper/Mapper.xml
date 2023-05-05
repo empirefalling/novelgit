@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.novel.mapper.Mapper">
+    <select id="getAllBook" resultType="Book">
+        select bookid,bookname,author,tip from Book
+    </select>
+    <select id="getBook" resultType="Text">
+        select bookid,bid,chapter from Text where bookid=#{bookid}
+    </select>
+
+    <select id="getBookAndText" resultType="BookAndText">
+        select (b.img is not null) img,b.bookid,b.bookname,b.author,b.intro,b.tip,t.bid,t.chapter from Book b,Text t where bid in  (select max(bid) from Text group by(bookid)) and b.bookid=t.bookid
+    </select>
+
+    <select id="getOneBook" resultType="Book">
+        select (img is not null) img,bookid,bookname,author,intro,tip from Book where bookid=#{bookid}
+    </select>
+    <select id="getPage" resultType="Text">
+        select * from Text where bid=#{bid}
+    </select>
+    <select id="searchoneBook" resultType="Book">
+        select * from Book where bookname like #{value} or author like #{value} or bookid like #{value}
+    </select>
+
+    <select id="searchBook" resultType="BookAndText">
+        select * from (select (b.img is not null) img,b.bookid,b.bookname,b.author,b.intro,b.tip,t.bid,t.chapter from Book b,Text t where bid in  (select max(bid) from Text group by(bookid)) and b.bookid=t.bookid) t where t.bookname like #{value} or t.author like #{value} or t.bookid like #{value}
+    </select>
+    <insert id="addBook">
+        insert into Book (bookid,bookname,tip,author,intro) values (#{bookid},#{bookname},#{tip},#{author},#{intro})
+    </insert>
+    <insert id="addPage">
+        insert into Text (bookid,chapter,page) values (#{bookid},#{chapter},#{page})
+    </insert>
+    <select id="getMaxBookid" resultType="Book">
+        select max(bookid) bookid from Book;
+    </select>
+    <select id="getNew" resultType="BookAndText">
+        select * from (select b.bookid,b.bookname,b.author,b.intro,b.tip,t.bid,t.chapter from Book b,Text t where bid in  (select max(bid) from Text group by(bookid)) and b.bookid=t.bookid) t where t.bookid=#{bookid}
+    </select>
+
+    <select id="getShenhe" resultType="BookAndText">
+        select b.bookid,b.bookname,b.author,b.intro,b.tip,s.bid,s.chapter,s.status from Book b,Shenhe s where b.bookid=s.bookid and (s.status <![CDATA[<>]]> 'true' or s.status is null)
+    </select>
+    <insert id="addShenhePage">
+        insert into Shenhe (bookid,chapter,page) values (#{bookid},#{chapter},#{page})
+    </insert>
+    <select id="getShenhePage" resultType="Text">
+        select * from Shenhe where bid=#{bid}
+    </select>
+
+    <select id="getAllShenhe" resultType="BookAndText">
+        select b.bookid,b.bookname,b.author,b.intro,b.tip,s.bid,s.chapter,s.status,s.addtime from Book b,Shenhe s where b.bookid=s.bookid
+    </select>
+
+    <delete id="DeleteShenhePage" >
+        delete from Shenhe where bid=#{bid}
+    </delete>
+
+    <update id="addRetreat" >
+        update Shenhe set status=#{arg0} where bid=#{arg1}
+    </update>
+
+    <update id="UpdatePage" >
+        update Shenhe set chapter=#{arg0},page=#{arg1} where bid=#{arg2}
+    </update>
+
+    <select id="getShenheBook" resultType="Book">
+        select bookid,bookname,author,intro,tip from Book where author=#{value}
+    </select>
+
+    <select id="getShenheList" resultType="Text">
+        select * from Shenhe where bookid=#{bookid}
+    </select>
+
+    <delete id="DeleteBook" >
+        delete from Book where bookid=#{bookid}
+    </delete>
+
+    <delete id="DeletePage" >
+        delete from Text where bookid=#{bookid}
+    </delete>
+
+    <delete id="DeletePage1" >
+        delete from Shenhe where bookid=#{bookid}
+    </delete>
+
+    <select id="getBookChapter" resultType="BookAndText">
+        select b.bookid,b.bookname,b.author,b.intro,b.tip,t.bid,t.chapter from Book b,Text t where b.bookid=t.bookid and t.bookid=#{bookid}
+    </select>
+
+    <delete id="DeleteChapter" >
+        delete from Text where bid=#{bid}
+    </delete>
+
+    <select id="getstatus" resultType="Integer">
+        select count(username) from User where username=#{value}
+    </select>
+
+    <select id="getUser" resultType="User">
+        select * from User where username = #{value}
+    </select>
+
+    <insert id="setUser" >
+        insert into User (username,password) values (#{username},#{password})
+    </insert>
+
+    <select id="getImg" resultType="Img" >
+        select img from Book where bookid = #{value}
+    </select>
+
+    <update id="UpLoad">
+        update Book set img=#{arg0} where bookid=#{arg1 }
+    </update>
+
+    <select id="getText" resultType="Text">
+        select chapter,page from Text where bookid=#{bookid}
+    </select>
+
+</mapper>

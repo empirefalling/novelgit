@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小说创作</title>
+    <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <style rel="stylesheet">
+        input{
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <div style="text-align: center">
+        <h1>请输入您的书籍信息</h1>
+        <form method="post" th:action="@{'/book/addbook/'+${username}+'/'+${max}}" style="text-align: center" >
+            <div style="width: 700px;margin: 0 auto;">
+                <br/><br/>
+                小说I&nbsp;&nbsp;&nbsp;D:
+                <input class="form-control" id="bookid" onfocus="this.blur()" type="text" name="bookid" th:value="${max}">
+                <br/><br/>
+
+                小说名称:
+                <input class="form-control" id="bookname" type="text" name="bookname" />
+                <br/><br/>
+
+                作品标签:
+                <input class="form-control" id="tip" type="text" name="tip" />
+                <br/><br/>
+
+                作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;者:
+                <input class="form-control" id="author" onfocus="this.blur()" type="text" name="author" th:value="${username}"/>
+                <br/><br/>
+            </div>
+            简&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;介:<br/><br/>
+            <textarea style="height: 600px;width: 1000px;margin: 0 auto;" placeholder="简介输入······" class="form-control" id="intro" name="intro" ></textarea>
+            <br/><br/>
+            <input style="padding: 6px 12px;float: right;margin-right: 100px;border:#ccc 1px solid;" class="btn btn-default" type="submit" value="提交" >
+
+
+
+        </form>
+
+
+
+    </div>
+
+
+</body>
+</html>

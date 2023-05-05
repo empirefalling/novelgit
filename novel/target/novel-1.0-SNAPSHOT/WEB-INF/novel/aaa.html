@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>小说首页</title>
+    <link th:href="@{/static/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/static/css/bootstrap1.css}" rel="stylesheet">
+    <script th:src="@{/static/js/jquery-1.9.1.js}"></script>
+    <script th:src="@{/static/js/bootstrap.js}"></script>
+</head>
+<body>
+
+
+    <div id="id-images2" class="container marketing">
+        <div class="row">
+            <div class="col2 col-md-6" th:each="book : ${page.list}">
+                <div >
+                    <a href="#top1" class="back-to-top">
+                        <img class="img-rounded" th:src="@{/img/content06.png}" >
+                    </a>
+                </div>
+                <!--                <p>房地产-标志设计</p>-->
+                <div >
+                    <h5><a th:text="${book.bookname}"></a></h5>
+                </div>
+                <div style="color: #a6a6a6;font-size: 12px;">
+                    <a th:text="${book.tip}"></a>
+                    &nbsp|&nbsp
+                    <a th:text="${book.author}"></a>
+                </div>
+                <div style="color: #a6a6a6;font-size: 12px">
+                    <p style="" th:text="'&nbsp&nbsp&nbsp&nbsp'+${book.intro}"></p>
+                </div>
+                <div>
+                    <a th:text="'最新章节:  '+${}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+<div style="text-align: center;">
+    <a th:if="${page.hasPreviousPage}" th:href="@{/home/all/1}">首页</a>
+    <a th:if="${page.hasPreviousPage}" th:href="@{'/home/all/'+${page.prePage}}">上一页</a>
+    <span th:each="num : ${page.navigatepageNums}">
+            <a th:if="${page.pageNum == num}" style="color: red;" th:href="@{'/home/all/'+${num}}" th:text="'['+${num}+']'"></a>
+            <a th:if="${page.pageNum != num}" th:href="@{'/home/all/'+${num}}" th:text="${num}"></a>
+        </span>
+    <a th:if="${page.hasNextPage}" th:href="@{'/home/all/'+${page.nextPage}}">下一页</a>
+    <a th:if="${page.hasNextPage}" th:href="@{'/hoem/all/'+${page.pages}}">末页</a>
+</div>
+
+
+
+
+
+
+</body>
+</html>

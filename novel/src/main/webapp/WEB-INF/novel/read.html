@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${book.bookname}"></title>
+
+    <style>
+        .chapter a{
+            padding-left: 10px;
+        }
+        .chapter em{
+            padding-right: 5px;
+        }
+        .buttom a{
+            margin: 14px 0;
+            height: 50px;
+        }
+        .buttom a:nth-child(-n+2){
+            padding-right: 17px;
+        }
+        a:hover {text-decoration: none;}
+        a{text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container" style="margin: 120px auto;width: 800px;">
+        <div class="content" style="padding: 60px 64px">
+            <div class="buttom" style="margin: auto;width: 253px;height: 50px;">
+                <a th:href="@{'/book/'+${book.bookid}+'/'+${pre}}"><<< 上一章</a>
+                <a th:href="@{'/book/'+${book.bookid}}">目录</a>
+                <a th:href="@{'/book/'+${book.bookid}+'/'+${next}}">下一章 >>></a>
+            </div>
+            <div class="header" >
+                <div class="chapter" >
+                    <h1 style="margin: 5px 0;" th:text="${text.chapter}">
+
+                    </h1>
+                </div>
+                <div >
+                    <div>
+                        <em style="padding-right: 5px;font-style: normal;"><a style="padding-left: 10px;font-size: 12px;" th:text="${book.bookname}"></a></em>
+                        <em style="padding-right: 5px;font-style: normal;"><a style="padding-left: 10px;font-size: 12px;" th:text="${book.author}"></a></em>
+                        <a style="padding-left: 10px;font-size: 12px;" th:text="'更新时间: '+${text.addtime}"></a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="page">
+                <p th:each="page : ${page}" style="word-break:break-all;font-size: 18px;text-indent:2em;" >
+                    <span style="line-height: 1.8;" th:text="${page}"></span>
+                </p>
+            </div>
+            <div class="buttom" style="margin: auto;width: 253px;height: 50px;">
+                <a th:href="@{'/book/'+${book.bookid}+'/'+${pre}}"><<< 上一章 </a>
+                <a th:href="@{'/book/'+${book.bookid}}">目录</a>
+                <a th:href="@{'/book/'+${book.bookid}+'/'+${next}}">下一章 >>></a>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+com\novel\pojo\Img.class
+com\novel\service\NovelService.class
+com\novel\servlet\CaptchaUtil.class
+com\novel\mapper\Mapper.class
+com\novel\pojo\Book.class
+com\novel\controller\NovelController.class
+com\novel\pojo\Text.class
+com\novel\pojo\User.class
+com\novel\pojo\BookAndText.class
+com\novel\service\impl\ServiceImpl.class
+com\novel\service\impl\Interceptor.class

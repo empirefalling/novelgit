@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>审核列表</title>
+    <link th:href="@{/static/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/static/css/bootstrap1.css}" rel="stylesheet">
+    <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet" />
+    <script th:src="@{/static/js/jquery-1.9.1.js}"></script>
+    <script th:src="@{/static/js/bootstrap.js}"></script>
+    <script>
+
+        function alert_tips(str,status) {
+            let info_css = 'display: inline-block;position: fixed;z-index: 888;top: 0;right: 30px;text-align: center;padding: 10px 20px;border-radius: 5px;color: #31708f;background-color: #d9edf7;border-color: #bce8f1';
+            let danger_css = 'display: inline-block;position: fixed;z-index: 888;top: 0;right: 30px;text-align: center;padding: 10px 20px;border-radius: 5px;color: #a94442;background-color: #f2dede;border-color: #ebccd1;'
+            let success_css = 'display: inline-block;position: fixed;top: 0;right: 30px;text-align: center;padding: 10px 20px;border-radius: 5px;color: #3c763d;background-color: #dff0d8;border-color: #d6e9c6;'
+            let warning_css = 'display: inline-block;position: fixed;z-index: 888;top: 0;right: 30px;text-align: center;padding: 10px 20px;border-radius: 5px;color: #8a6d3b;background-color: #fcf8e3;border-color: #faebcc;'
+            let add_alert = '';
+            if(status === 'success'){
+                add_alert = '<span id="alert_test" style="'+success_css+'">'+str+'</span>';
+            }else if(status === 'info'){
+                add_alert = '<span id="alert_test" style="'+info_css+'">'+str+'</span>';
+            }else if(status === 'danger'){
+                add_alert = '<span id="alert_test" style="'+danger_css+'">'+str+'</span>';
+            }else if(status === 'warning'){
+                add_alert = '<span id="alert_test" style="'+warning_css+'">'+str+'</span>';
+            }
+            $('body').append(add_alert);
+            //transition: all 3s 2s linear;
+            $('span#alert_test').css({"top":"30px","transition":"3s"});
+            setTimeout(() => {
+                // console.log('sleep 1.8s.');
+                let index = 10;
+                let interval = setInterval(function () {
+                    if(index === -60){ //设3秒时间段
+                        clearInterval(interval);
+                        $('#alert_test').remove(); //显示完后删除节点
+                    }
+                    $('span#alert_test').css({"opacity":(index/10)});
+                    // console.log('===>',index);
+                    index--;
+                },30)
+            }, 1000); //延时1.8秒
+        }
+
+    </script>
+    <style>
+        a:hover{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div style="margin: 100px 100px;">
+    <div>
+        <a th:href="@{/root/book/all/1}" style="border: #ccc 1px solid;padding: 6px 12px;border-radius: 0.25rem;">返回</a>
+    </div>
+
+
+    <table class="table table-hover" >
+        <thead>
+        <tr  >
+            <th style="text-align: center" colspan="5">审核列表</th>
+        </tr>
+        <tr>
+            <th>ID</th>
+            <th>小说名称</th>
+            <th>标签</th>
+            <th>作者</th>
+            <th>章节名称</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${page.list}">
+            <td th:if="${book.status != 'true'}" th:text="${book.bookid}"></td>
+            <td th:if="${book.status != 'true'}" th:text="${book.bookname}"></td>
+            <td th:if="${book.status != 'true'}" th:text="${book.tip}"></td>
+            <td th:if="${book.status != 'true'}" th:text="${book.author}"></td>
+            <td th:if="${book.status != 'true'}" th:text="${book.chapter}"></td>
+
+            <td th:if="${book.status != 'true'}">
+                <a th:if="${book.status != 'true'}" th:href="@{'/book/pass/'+${book.bid}}" onclick="alert_tips('操作成功','success')" style="border: #ccc 1px solid;padding: 6px 12px;border-radius: 0.25rem;">通过</a>
+                <a th:if="${book.status != 'true'}" th:href="@{'/book/shenhe/read/'+${book.bookid}+'/'+${book.bid}}" style="border: #ccc 1px solid;padding: 6px 12px;border-radius: 0.25rem;">查看</a>
+                <a th:if="${book.status != 'true'}" th:href="@{'/book/retreat/'+${book.bid}}" onclick="alert_tips('操作成功','success')" style="border: #ccc 1px solid;padding: 6px 12px;border-radius: 0.25rem;">退回</a>
+<!--                <a th:if="${book.status == 'true'}" style="border: #ccc 1px solid;padding: 6px 12px;border-radius: 0.25rem;">已退回，等待修改</a>-->
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+</div>
+<div style="text-align: center;">
+    <ul class="pagination">
+        <li><a th:if="${page.hasPreviousPage}" th:href="@{/book/shenhe/1}">首页</a></li>
+        <li><a th:if="${page.hasPreviousPage}" th:href="@{'/book/shenhe/'+${page.prePage}}">上一页</a></li>
+        <li class="paginate_button " th:each="num : ${page.navigatepageNums}" >
+            <a th:if="${page.pageNum == num}" style="background: #337ab7;color: white" th:href="@{'/book/shenhe/'+${num}}" th:text="${num}"></a>
+            <a th:if="${page.pageNum != num}" th:href="@{'/book/shenhe/'+${num}}" th:text="${num}"></a>
+        </li>
+        <li><a th:if="${page.hasNextPage}" th:href="@{'/book/shenhe/'+${page.nextPage}}">下一页</a></li>
+        <li><a th:if="${page.hasNextPage}" th:href="@{'/book/shenhe/'+${page.pages}}">末页</a></li>
+
+    </ul>
+</div>
+
+</body>
+
+</html>

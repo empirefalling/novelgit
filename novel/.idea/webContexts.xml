@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/novel/aaa.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/novel" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/novel/addchapter.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/novel" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/novel/book.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/novel" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/novel/bookhome.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/novel" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/novel/read.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/novel" />
+      </map>
+    </option>
+  </component>
+</project>

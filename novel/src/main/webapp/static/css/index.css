@@ -1,0 +1,45 @@
+
+.coltext{
+	margin-top: 20px;
+}
+#id-images2{
+	margin-top: 40px;
+}
+.col2{
+	/*font-size: 2px;*/
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.col2 img{
+	border: 2px solid #dcdcdc;
+	width: 102px; height: 130px;
+}
+.col2 p{
+	margin-top: 5px;
+	overflow: hidden;
+	ont-size: 14px;
+	height: 48px;
+	line-height: 24px;
+}
+.col2:nth-child(n + 3){
+	border-top: solid 1px #d6d7db;
+}
+.col2 div:nth-child(1){
+	padding-top: 20px;width: 25%;height: 100%;float: left;
+	/* padding-top: 20px; */
+}
+.col2 div:nth-child(2){
+	padding-top: 20px;width: 75%;float: left;
+}
+.paginate_button a:hover{
+	color: white;
+}
+a:hover {text-decoration: none;}
+a{text-decoration: none;}
+img{
+	cursor: pointer;
+	transition: all 0.6s;
+}
+img:hover{
+	transform: scale(1.4);
+}

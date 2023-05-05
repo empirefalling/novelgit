@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <link th:href="@{/static/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/static/css/bootstrap1.css}" rel="stylesheet">
+    <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet" />
+    <script th:src="@{/static/js/jquery-1.9.1.js}"></script>
+    <script th:src="@{/static/js/bootstrap.js}"></script>
+    <style>
+        a:hover{
+            text-decoration: none;
+        }
+        img{
+            cursor: pointer;
+            transition: all 0.6s;
+        }
+        img:hover{
+            transform: scale(1.15);
+        }
+    </style>
+
+</head>
+<body>
+<div id="id-images2" class="container marketing">
+    <div style="width: 100%;height: 26px;">
+        <form style="float: right" th:action="@{/book/search/1}" >
+            <input type="text" class="search" placeholder="请输入书名或作者名，宁缺勿错" /><input type="submit" class="search" value="搜索" />
+        </form>
+    </div>
+    <div class="row">
+        <div class="col2 col-md-6" th:each="book : ${page.list}">
+            <div >
+                <a href="#top1" class="back-to-top" th:href="@{'/book/'+${book.bookid}}">
+                    <img th:if="${book.img} == 1" class="img-rounded" target="_blank" th:title="${book.bookname}+'在线阅读'" th:src="@{'/book/img/'+${book.bookid}}" >
+                    <img th:if="${book.img} == 0" class="img-rounded" target="_blank" th:title="${book.bookname}+'在线阅读'" th:src="@{/static/img/default.png}" >
+                </a>
+            </div>
+            <div >
+                <h6 style="margin-top: 4px;margin-bottom: 12px;"><a style="font-size: 14px;" th:target="_blank" th:text="${book.bookname}" th:href="@{'/book/'+${book.bookid}}"></a></h6>
+            </div>
+            <div style="color: #a6a6a6;font-size: 12px;">
+                <a th:text="${book.tip}"></a>
+                &nbsp|&nbsp
+                <a th:text="${book.author}"></a>
+            </div>
+            <div style="color: #a6a6a6;font-size: 12px">
+                <p style="" th:text="'&nbsp&nbsp&nbsp&nbsp'+${book.intro}"></p>
+            </div>
+            <div style="color: #a6a6a6;font-size: 12px">
+                <a th:href="@{'/book/'+${book.bookid}+'/'+${book.bid}}" th:text="'最新章节:  '+${book.chapter}"></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="text-align: center;">
+    <!--    <a th:if="${page.hasPreviousPage}" th:href="@{/home/all/1}">首页</a>-->
+    <!--    <a th:if="${page.hasPreviousPage}" th:href="@{'/home/all/'+${page.prePage}}">上一页</a>-->
+    <!--    <span th:each="num : ${page.navigatepageNums}">-->
+    <!--            <a th:if="${page.pageNum == num}" style="color: red;" th:href="@{'/home/all/'+${num}}" th:text="'['+${num}+']'"></a>-->
+    <!--            <a th:if="${page.pageNum != num}" th:href="@{'/home/all/'+${num}}" th:text="${num}"></a>-->
+    <!--        </span>-->
+    <!--    <a th:if="${page.hasNextPage}" th:href="@{'/home/all/'+${page.nextPage}}">下一页</a>-->
+    <!--    <a th:if="${page.hasNextPage}" th:href="@{'/hoem/all/'+${page.pages}}">末页</a>-->
+
+    <ul class="pagination">
+        <li><a th:if="${page.hasPreviousPage}" th:href="@{/book/all/1}">首页</a></li>
+        <li><a th:if="${page.hasPreviousPage}" th:href="@{'/book/all/'+${page.prePage}}">上一页</a></li>
+        <li class="paginate_button " th:each="num : ${page.navigatepageNums}" >
+            <a th:if="${page.pageNum == num}" style="background: #337ab7;color: white" th:href="@{'/book/all/'+${num}}" th:text="${num}"></a>
+            <a th:if="${page.pageNum != num}" th:href="@{'/book/all/'+${num}}" th:text="${num}"></a>
+        </li>
+        <li><a th:if="${page.hasNextPage}" th:href="@{'/book/all/'+${page.nextPage}}">下一页</a></li>
+        <li><a th:if="${page.hasNextPage}" th:href="@{'/book/all/'+${page.pages}}">末页</a></li>
+
+    </ul>
+</div>
+</body>
+</html>

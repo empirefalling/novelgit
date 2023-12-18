@@ -11,6 +11,7 @@
     <script th:src="@{/static/js/bootstrap.js}"></script>
 
     <script>
+        var num=1;
         //判断是登录账号和密码是否为空
         function check1(){
             var username = $("#username").val();
@@ -27,16 +28,30 @@
             return true;
         }
         function check() {
-            $('#captchaImage').attr("th:src='@{/captcha}'");
+
+
+            // location.href("@{/captcha}")
+            var ss='/novel/captcha/'+num;
+            num++;
+            var change=document.getElementById('captchaImage');
+            // change.src="@{/captcha}";
+            $('#captchaImage').attr('style', 'height:33.33px;wight:33.33px;');
+            change.removeAttribute('src');
+
+            change.setAttribute('src','/novel/static/img/wait.gif');
+            setTimeout(function(){$('#captchaImage').attr('style', 'height:33.33px;'); change.removeAttribute('src');change.setAttribute('src',ss);}, 500);
+
+
         }
         // var captchaImage = $('#captchaImage');
         // //写点击事件,点击一下换一张验证码
-        // captchaImage.click(function () {
-        //     captchaImage.attr("th:src", "@{/captcha}?" + Math.random());
+        // $('#captchaImage').click(
+        //     function () {
+        //     $('#captchaImage').attr("src", "/recaptcha");
         // });
         // $('#captchaImage').click(
         //     function() {
-        //     $('#captchaImage').attr("th:src", "@{/captcha}?timestamp=" + (new Date()).valueOf());
+        //     $('#captchaImage').attr("src", "/captcha?timestamp=" + (new Date()).valueOf());
         // })
     </script>
     <style rel="stylesheet">
@@ -73,7 +88,7 @@
 
                         验证码:
                         <br/>
-                        <img style="width: 100px;" id="captchaImage" th:src="@{/captcha}" onsubmit="check()">
+                        <img style="width: 100px;" id="captchaImage" onclick="check()" th:src="@{/captcha}">
                         <input class="form-control" id="check_code" name="check_code" type="text"><br/>
 
                             <input style="float: right" class="btn btn-default" type="submit" value="登录" />

@@ -17,7 +17,7 @@ public final class CaptchaUtil
 
 	private static final long serialVersionUID = 1L;
 	private static int WIDTH=60;
-	private static int HEIGHT=30;
+	private static int HEIGHT=20;
 
 
 	private CaptchaUtil(){}
@@ -29,27 +29,38 @@ public final class CaptchaUtil
 	 */
 	private static void drawBackground(Graphics g) {
 
-		g.setColor(new Color (0xDCDCDC));
+		g.setColor(new Color (0xFFFFFFFF, true));
 		g.fillRect(0,0, WIDTH , HEIGHT );
-		for ( int i =0; i <120; i ++) {
-			int x =(int)( Math . random () * WIDTH );
-			int y =(int)( Math . random () * HEIGHT );
-			int red =(int)( Math . random () * 255);
-			int green =(int)( Math . random () * 255);
-			int blue =(int)( Math . random () * 255);
-			g.setColor (new Color (red,green,blue));
-			g.drawOval(x,y,1,0);
+		for ( int i =0; i <20; i ++) {
+			int x =(int)( Math.random() * WIDTH );
+			int y =(int)( Math.random() * HEIGHT );
+			int red =(int)( Math.random() * 255);
+			int green =(int)( Math.random() * 255);
+			int blue =(int)( Math.random() * 255);
+			g.setColor (new Color(red,green,blue));
+			g.drawOval(x,y,0,1);
+
 		}
+
 	}
 
 	private static void drawRands(Graphics g, char[] rands) {
 
-		g.setColor( Color.BLACK );
-		g.setFont(new Font(null, Font.ITALIC|Font.BOLD,18));
-		g.drawString (""+ rands [0],1,17);
-		g.drawString (""+ rands [1],16,15);
-		g.drawString (""+ rands [2],31,18);
-		g.drawString (""+ rands [3],46,16);
+
+		g.setFont(new Font("Algerian", Font.ITALIC,18));
+		int x =1;
+		for (int i =0; i <4; i++){
+			int red =(int)( Math.random() * 255);
+			int green =(int)( Math.random() * 255);
+			int blue =(int)( Math.random() * 255);
+			g.setColor(new  Color(red,green,blue));
+			g.drawString (""+ rands [i], x, (int) Math.random() * 4 +15);
+			x= x+15;
+		}
+//		g.drawString (""+ rands [0],1,17);
+//		g.drawString (""+ rands [1],16,15);
+//		g.drawString (""+ rands [2],31,18);
+//		g.drawString (""+ rands [3],46,16);
 
 		System.out.println(rands);
 	}
@@ -66,7 +77,7 @@ public final class CaptchaUtil
 		return rands;
 	}
 
-	public static void outputCaptcha(HttpServletRequest request, HttpServletResponse response)
+	public static void outputCaptcha(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws ServletException, IOException
 	{
 
@@ -90,7 +101,7 @@ public final class CaptchaUtil
 		sos.write(buf);
 		bos.close ();
 		sos.close ();
-		HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
 		session.setAttribute("check_code",new String (rands));
 	}
 }

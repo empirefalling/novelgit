@@ -10,7 +10,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.codec.multipart.Part;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -297,6 +296,7 @@ public class NovelController {
     public String addShenhePage(@PathVariable("bid") Integer bid, Text text, HttpServletRequest request) throws IOException {
 
         text = NovelService.getShenhePage(bid);
+        Book book = (Book) NovelService.getBook(text.getBookid());
 
 
 //        String dir = "E:\\IdeaProjects\\SSM\\novel\\src\\main\\webapp\\static\\download\\"+""+text.getBookid()+".txt";
@@ -501,10 +501,14 @@ public class NovelController {
 
             if (username.equals(user1.getUsername()) && password.equals(user1.getPassword()) && checkCode.equals(session.getAttribute("check_code"))){
                 if(username.equals("root")){
+                    session.removeAttribute("check_code");
                     session.setAttribute("ROOT_SESSION",user);
+//                    System.out.println(session.getAttribute("USER_SESSION"));
                     return "redirect:/root/book/all/1";
                 }else {
+                    session.removeAttribute("check_code");
                     session.setAttribute("USER_SESSION",user);
+                    System.out.println(session.getAttribute("USER_SESSION"));
                     return "redirect:/book/all/1";
                 }
 
@@ -528,12 +532,32 @@ public class NovelController {
     }
 
     //验证码
-    @RequestMapping(value = "/captcha", method = RequestMethod.GET)
+    @RequestMapping(value = "/captcha")
 //    @ResponseBody
-    public void captcha(HttpServletRequest request, HttpServletResponse response)
+    public void captcha(HttpSession session, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        CaptchaUtil.outputCaptcha(request,response);
+
+        CaptchaUtil.outputCaptcha(request,response,session);
+//        System.out.println(session.getAttribute("check_code"));
+    }
+
+    //刷新验证码
+    @RequestMapping(value = "/captcha/{pageNum}")
+//    @ResponseBody
+    public void recaptcha(@PathVariable("pageNum") Integer p,HttpSession session, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
+    {
+        if (p==1){
+//            session.removeAttribute("check_code");
+            CaptchaUtil.outputCaptcha(request,response,session);
+        }else {
+
+            CaptchaUtil.outputCaptcha(request,response,session);
+        }
+
+
+//        return "redirect:/captcha";
     }
 
     //跳转注册用户
@@ -545,17 +569,24 @@ public class NovelController {
 
     //注册用户
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(User user,Model model, HttpSession session){
+    public String register(User user,Model model, HttpSession session, HttpServletRequest request){
         int a = NovelService.getstatus(user.getUsername());
+        String checkCode = request.getParameter("check_code");
+        System.out.println(checkCode);
         if (a==1){
             model.addAttribute("msg","用户名已存在，请重新输入");
+            return "register";
+        }else if(!checkCode.equals(session.getAttribute("check_code"))){
+
+            model.addAttribute("msg","验证码错误，请重新输入");
             return "register";
         }else {
             NovelService.setUser(user);
             session.setAttribute("USER_SESSION",user);
 
             return "redirect:/book/all/1";
-        }
+                }
+
 
     }
 
@@ -605,21 +636,27 @@ public class NovelController {
     public ResponseEntity<byte[]> downloadtxt(@PathVariable("bookid") Integer bookid, HttpServletRequest request) throws IOException {
 
 //        String dir = "E:\\IdeaProjects\\SSM\\novel\\src\\main\\webapp\\static\\download\\"+""+bookid+".txt";
-        String dir = request.getServletContext().getRealPath("/static/download/")+bookid+".txt";
-        File file = new File(dir);
+//        String dir = request.getServletContext().getRealPath("/static/download/")+bookname+".txt";
+//        File file = new File(dir);
 
-//        List<Text> text = NovelService.getText(bookid);
-//        StringBuffer file = new StringBuffer();
-//        for (Text text1 : text){
-//            file.append(text1.getChapter().concat("\n\n").concat(text1.getPage()).concat("\n\n"));
-//        }
-//        byte[] file1 = file.toString().getBytes();
+        List<Text> text = NovelService.getText(bookid);
+        Book book = NovelService.getOneBook(bookid);
+        System.out.println(book.getBookname());
+        StringBuffer file = new StringBuffer();
+        for (Text text1 : text){
+            file.append(text1.getChapter().concat("\n\n").concat(text1.getPage()).concat("\n\n"));
+        }
+        byte[] file1 = file.toString().getBytes();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentDispositionFormData("attachment",bookid+".txt");
+
+        headers.setContentDispositionFormData("attachment", new String ((book.getBookname()+".txt").getBytes("utf-8"),"iso8859-1"));
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 
-        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers,HttpStatus.OK);
+        return new ResponseEntity<byte[]>(file1,headers,HttpStatus.OK);
+
+
+//        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers,HttpStatus.OK);
 
     }
 

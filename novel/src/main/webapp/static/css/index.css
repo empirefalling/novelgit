@@ -43,3 +43,173 @@ img{
 img:hover{
 	transform: scale(1.4);
 }
+
+li, ol, ul {
+	list-style: none outside none;
+}
+
+
+.main-nav-wrap {
+	height: 40px;
+	width: 100%;
+}
+
+.main-nav-wrap,.main-nav-wrap .main-nav {
+	background-color: #3e3d43;
+	position: relative
+}
+
+.main-nav-wrap .main-nav {
+	display: inline-block;
+	height: 40px;
+	*z-index: 2
+}
+
+.main-nav-wrap .main-nav li {
+	float: left
+}
+
+.main-nav-wrap .main-nav li.first b {
+	border-color: #a6a6a6 transparent currentcolor;
+	margin-left: -5px;
+	right: 18px;
+	top: 18px;
+	transition: all .5s
+}
+
+.main-nav-wrap .main-nav li.first b,.main-nav-wrap .main-nav li.first b strong {
+	border-style: solid solid none;
+	border-width: 5px 5px 0;
+	height: 0;
+	position: absolute;
+	width: 0
+}
+
+.main-nav-wrap .main-nav li.first b strong {
+	border-color: #333 transparent currentcolor;
+	right: -5px;
+	top: -7px
+}
+
+/* .main-nav-wrap .main-nav li.first:hover span {
+    background-color: #252428
+} */
+
+.main-nav-wrap .main-nav li.first:hover b {
+	-webkit-transform: rotateX(-180deg);
+	-moz-transform: rotateX(-180deg);
+	transform: rotateX(-180deg)
+}
+
+.main-nav-wrap .main-nav li a {
+	/* border-bottom: 2px solid #333; */
+	color: #fff;
+	float: left;
+	font: 16px/38px PingFangSC-Regular,HelveticaNeue-Light,Helvetica Neue Light,Microsoft YaHei,"sans-serif";
+	height: 38px;
+	padding: 0 29px
+}
+.main-nav-wrap .main-nav li.first a {
+	height: 60px;
+	line-height: 60px;
+}
+
+.dropdown-content a{
+	width: 50%;
+}
+
+.main-nav-wrap .main-nav li.nav-li a.act {
+	background-color: #ed4259;
+	border-bottom: 2px solid #ed4259;
+	color: #fff
+}
+
+
+
+.main-nav-wrap .main-nav li.nav-li a:hover {
+	background-color: #252428;
+	border-bottom: 2px solid #252428;
+	border-top: 2px solid #ed4259;
+	height: 40px;
+	line-height: 34px;
+	transition: none
+}
+
+.main-nav-wrap .main-nav li.first {
+	background-color: #313035;
+	cursor: pointer;
+	height: 38px;
+	margin-right: 30px;
+	position: relative;
+	width: 216px
+}
+
+
+
+.main-nav-wrap .main-nav li.first:hover span {
+	background-color: #252428
+}
+
+
+
+.main-nav-wrap .main-nav li.first span {
+	background-color: #313035;
+	color: #fff;
+	display: block;
+	font: 16px/38px PingFangSC-Regular,HelveticaNeue-Light,Helvetica Neue Light,Microsoft YaHei,"sans-serif";
+	padding: 0 0 0 18px;
+	transition: all .5s
+}
+
+.main-nav-wrap .main-nav li.first span em {
+	float: left;
+	height: 14px;
+	margin: 13px 8px 0 0;
+	overflow: hidden;
+	vertical-align: middle;
+	width: 16px
+}
+
+.main-nav-wrap .main-nav li.first span em i {
+	background: #d5d5d6;
+	display: block;
+	height: 2px;
+	margin-bottom: 4px;
+	width: 16px
+}
+
+.main-nav-wrap .main-nav li.first i {
+	font-size: 14px;
+	color: #000000;
+}
+
+a:hover{
+	text-decoration: none;
+}
+
+
+
+
+
+
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+
+	display: none;
+	position: absolute;
+	background-color: #f7f6f2;
+	min-width: 200px;
+	box-shadow: 0px 3px 5px 0px #ccc;
+	z-index: 1;
+}
+
+
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}

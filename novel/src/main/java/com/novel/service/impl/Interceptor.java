@@ -17,9 +17,9 @@ public class Interceptor implements HandlerInterceptor {
         if(url.indexOf("/login")>=0 || url.indexOf("/register")>=0 || url.lastIndexOf("novel/")==url.length()-6 || url.indexOf("/captcha")>=0){
             return true;
         }
-//        if(url.indexOf("/")>=0){
-//            return true;
-//        }
+        if(url.indexOf("/")>=0){
+            return true;
+        }
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("USER_SESSION");

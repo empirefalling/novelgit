@@ -48,6 +48,12 @@
         <servlet-name>SpringMVC</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.js</url-pattern>
+        <url-pattern>*.css</url-pattern>
+        <url-pattern>/static/*</url-pattern>
+    </servlet-mapping>
 
     <!--配置Spring的监听器，在服务器启动时加载Spring的配置文件-->
     <listener>

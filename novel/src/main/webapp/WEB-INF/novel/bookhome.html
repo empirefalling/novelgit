@@ -24,17 +24,20 @@
 <body>
 
 
-<div style="" id="id-images2" class="container marketing">
-    <div style="float: right;">
+<div style="width: 1200px;margin:  auto" id="id-images2" class="top marketing">
+    <div style="width: 200px;float: right;margin-top: 10px;">
 
-        <p th:if="${user} != null" th:text="'用户名: '+${user.username}"></p>
-        <p th:if="${user} == null">游客</p>
-        <form th:if="${user} != null" th:action="@{'/logout/'+${user.username}}">
-            <input class="btn btn-default" type="submit" value="退出登录" >
-        </form>
+        <p style="float:right;line-height: 40px;" th:if="${user} != null" th:text="'用户名: '+${user.username}"></p>
+        <p style="float:right;line-height: 40px;" th:if="${user} == null">游客</p>
+        <img th:src="@{/static/img/USER.jpg}" style="border-radius: 50px;width:40px;margin:0 10px 10px 0;float:right;">
+        <a style="float:right;border: #ccc 2px solid;padding: 6px 12px;margin-top: 10px;" th:href="@{'/logout/'+${user.username}}">退出登录</a>
+<!--        <form th:if="${user} != null" th:action="@{'/logout/'+${user.username}}">-->
+<!--            <input style="float: right;margin-top: 10px;" class="btn btn-default" type="submit" value="退出登录" >-->
+<!--        </form>-->
+
 
     </div>
-    <div style="margin-top: 100px;width: 100%;height: 34px;">
+    <div style="margin: 20px 0 20px 0;width: 100%;float:left;">
         <form style="float: left;" >
             <input th:if="${user} != null" class="btn btn-default" type="submit" value="发布新书"  th:formaction="@{'/book/add/'+${user.username}}">
             <input th:if="${user} == null" class="btn btn-default" type="submit" value="发布新书"  th:formaction="@{'/book/add/'+'佚名'}">
@@ -45,11 +48,52 @@
             <input type="text" id="search" name="search" class="search btn btn-default" placeholder="请输入书名或作者名，宁缺勿错" /><input type="submit" class="search btn btn-default" value="搜索" />
         </form>
     </div>
+</div>
+<div style="width: 100%;margin:  auto"  class="nav marketing">
+    <div class="main-nav-wrap" style="padding-left: 200px" data-l1="3">
+        <div class="main-nav box-center cf" id="type-hover">
 
-    <div class="row">
+            <ul>
+                <li class="first dropdown">
+                    <b><strong></strong></b>
+                    <span>
+								<em> <i></i> <i></i> <i></i> </em>作品分类
+								</span>
+                    <div class="dropdown-content">
+                        <a href="/xuanhuan/" title="玄幻小说" target="_blank" data-eid="qd_A71"><i>玄幻</i></a>
+                        <a href="/qihuan/" title="奇幻小说" target="_blank" data-eid="qd_A72"><i>奇幻 </i></a>
+                        <a href="/wuxia/" title="武侠小说" target="_blank" data-eid="qd_A73"><i>武侠</i></a>
+                        <a href="/xianxia/" title="仙侠小说" target="_blank" data-eid="qd_A74"><i>仙侠</i></a>
+                        <a href="/dushi/" title="都市小说" target="_blank" data-eid="qd_A75"><i>都市</i></a>
+                        <a href="/xianshi/" title="现实小说" target="_blank" data-eid="qd_A76"><i>现实</i></a>
+                        <a href="/junshi/" title="军事小说" target="_blank" data-eid="qd_A77"><i>军事</i></a>
+                        <a href="/lishi/" title="历史小说" target="_blank" data-eid="qd_A78"><i>历史</i></a>
+                        <a href="/youxi/" title="游戏小说" target="_blank" data-eid="qd_A79"><i>游戏</i></a>
+                        <a href="/tiyu/" title="体育小说" target="_blank" data-eid="qd_A80"><i>体育</i></a>
+                        <a href="/kehuan/" title="科幻小说" target="_blank" data-eid="qd_A81"><i>科幻</i></a>
+                        <a href="/zhutianwuxian/" title="诸天无限小说" target="_blank" data-eid="qd_A81"><i style="white-space: nowrap;">诸天无限</i></a>
+                        <a href="/lingyi/" title="悬疑小说" target="_blank" data-eid="qd_A82"><i>悬疑</i></a>
+                        <a href="/2cy/" title="轻小说" target="_blank" data-eid="qd_A84"><i>轻小说</i></a>
+                    </div>
+                </li>
+                <li class="nav-li"><a href="//www.qidian.com/all/" data-eid="qd_A15" class="act">全部作品</a></li>
+                <li class="nav-li"><a href="//www.qidian.com/rank/" data-eid="qd_A16">排行</a></li>
+                <li class="nav-li"><a href="//www.qidian.com/finish/" data-eid="qd_A17">完本</a></li>
+                <li class="nav-li"><a href="//www.qidian.com/free/" data-eid="qd_A18">免费</a></li>
+                <li class="nav-li"><a class="third-remove" href="https://write.qq.com/?siteid=1" target="_blank" data-eid="qd_A19">作家专区</a></li>
+                <li class="nav-li"><a class="third-remove" href="https://www.yuewen.com/app.html#appqd" target="_blank" data-eid="qd_A20"><b class="iconfont client"></b>客户端</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div style="width: 1200px;margin:  auto"  class="controls marketing">
+    <div style="width: 20%;float: left;height: 500px;">
+
+    </div>
+    <div class="row" style="width: 80%;">
         <div class="col2 col-md-6" th:each="book : ${page.list}">
             <div >
-                <a  target="_blank" class="back-to-top" th:href="@{'/book/'+${book.bookid}}">
+                <a style="display: block;overflow: hidden;margin-right:10px;border-radius: 6px;"  target="_blank" class="back-to-top" th:href="@{'/book/'+${book.bookid}}">
                     <img th:if="${book.img} == 1" class="img-rounded" target="_blank" th:title="${book.bookname}+'在线阅读'" th:src="@{'/book/img/'+${book.bookid}}" >
                     <img th:if="${book.img} == 0" class="img-rounded" target="_blank" th:title="${book.bookname}+'在线阅读'" th:src="@{/static/img/default.png}" >
                 </a>

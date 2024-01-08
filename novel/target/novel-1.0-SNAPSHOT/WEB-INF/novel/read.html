@@ -18,8 +18,15 @@
         .buttom a:nth-child(-n+2){
             padding-right: 17px;
         }
-        a:hover {text-decoration: none;}
-        a{text-decoration: none; }
+        a:hover {text-decoration: none;color: #ed4259;}
+        a{
+            text-decoration: none;
+            color: #551A8B;
+        }
+        a:visited{
+            text-decoration:none;
+        }
+
     </style>
 </head>
 <body>
@@ -38,7 +45,7 @@
                 </div>
                 <div >
                     <div>
-                        <em style="padding-right: 5px;font-style: normal;"><a style="padding-left: 10px;font-size: 12px;" th:text="${book.bookname}"></a></em>
+                        <em style="padding-right: 5px;font-style: normal;"><a style="padding-left: 10px;font-size: 12px;" th:text="${book.bookname}" th:href="@{'/book/'+${book.bookid}}"></a></em>
                         <em style="padding-right: 5px;font-style: normal;"><a style="padding-left: 10px;font-size: 12px;" th:text="${book.author}"></a></em>
                         <a style="padding-left: 10px;font-size: 12px;" th:text="'更新时间: '+${text.addtime}"></a>
 

@@ -30,7 +30,7 @@
     </div>
     <div class="top" style="width: 100%;height: 200px;">
         <a style="padding-left: 10px" th:href="@{'/book/all/'+${back}}">返回</a>
-        <div class="bookimg" style="width: 15%;float: left;">
+        <div class="bookimg" style="width: 16%;float: left;">
             <a th:href="@{'/book/'+${onebook.bookid}+'/'+${first}}">
                 <img th:if="${onebook.img} == 1" style="border-radius: 6px;width: 144px;height: 192px;box-shadow: 0 1px 6px rgba(0,0,0,.35), inset 0 0 5px #f9f2e9;" th:title="${onebook.bookname}+'在线阅读'" th:src="@{'/book/img/'+${onebook.bookid}}" />
                 <img th:if="${onebook.img} == 0" style="border-radius: 6px;width: 144px;height: 192px;box-shadow: 0 1px 6px rgba(0,0,0,.35), inset 0 0 5px #f9f2e9;" th:title="${onebook.bookname}+'在线阅读'" th:src="@{/static/img/default.png}" />
@@ -43,25 +43,27 @@
             </div> -->
             <h1  style="margin-bottom: 12px;padding-top: 5px;font-size: 28px;margin-top: 0px;font: 700 28px PingFangSC-Regular,HelveticaNeue-Light,Helvetica Neue Light,Microsoft YaHei,sans-serif;">
             <em style="font-style: normal;" th:text="${onebook.bookname}"></em>
-            <span style="font: 14px/20px PingFangSC-Regular,-apple-system,Simsun;margin-left: 20px;">
-						<a class="writer" th:text="${onebook.author}"></a> 著
-					</span>
+
             </h1>
             <div >
-					<span >
-						<a style="padding: 0 10px ;border-radius: 15px;border-style: solid;border-width: 1px;border-color: #9fadc9;color: #3f5a93;" th:text="${onebook.tip}"></a>
-					</span>
+
+                <span style="font: 14px/20px PingFangSC-Regular,-apple-system,Simsun;">
+                    <img th:src="@{/static/img/user.png}" style="width: 15px;height: 15px;margin: 0 0 3px 0;border: 0" />
+                    <a class="writer" th:text="${onebook.author}"></a> 著
+
+                    <a style="padding: 3px 10px ;border-radius: 15px;border-style: solid;border-width: 1px;border-color: #9fadc9;color: #3f5a93;" th:text="${onebook.tip}" th:href="@{'/book/all/'+${onebook.tip}+'/1'}"></a>
+                </span>
             </div>
 
         </div>
-        <div  class="intro" style="padding-left:10px;width: 84% ;float: right;padding-right: 200px;">
+        <div  class="intro" style="margin-top: 10px;padding-left:10px;width: 84% ;float: right;padding-right: 200px;">
             <p th:text="${onebook.intro}" style="word-break:break-all;" ></p>
         </div>
-        <div class="buttom" style="padding-left:10px;width: 84% ;float: right;">
-            <a th:href="@{'/book/'+${onebook.bookid}+'/'+${first}}">
-                <button  class="button button-large button-plain button-border button-square" style="width: 102px;height: 35px;border-color: #3f5a93;color: #3f5a93;">
+        <div class="buttom" style="margin-top: 10px;padding-left:10px;width: 84% ;float: right;">
+            <a th:href="@{'/book/'+${onebook.bookid}+'/'+${first}}" style="border: #ccc 1px solid;padding: 6px 12px;border-radius: 0.25rem;">
+<!--                <button  class="button button-large button-plain button-border button-square" style="width: 102px;height: 35px;border-color: #3f5a93;color: #3f5a93;">-->
                 免费试读
-                </button>
+<!--                </button>-->
             </a>
             <a th:href="@{'/book/download/'+${onebook.bookid}}" style="margin-left: 10px;border: #ccc 1px solid;padding: 6px 12px;border-radius: 0.25rem;">下载小说</a>
         </div>
@@ -71,10 +73,8 @@
             <h4 th:text="${onebook.bookname}+' 章节目录'" style="margin-left: 20px;"></h4>
         </div>
         <ul class="cf" style="list-style: none;width: 100%;height: auto;">
-            <li th:each="book : ${books}" style="float: left;font: 14px/40px PingFangSC-Regular,-apple-system,Simsun;width: 290px;">
-                <h2 class="book_name" style="padding: 10px 0;width: 290px;font-size: 14px;border-bottom: 1px solid #ebebeb;float: left;">
-                    <a th:text="${book.chapter}" th:href="@{'/book/'+${onebook.bookid}+'/'+${book.bid}}"></a>
-                </h2>
+            <li th:each="book : ${books}" style="width: 290px;border-bottom: 1px solid #ebebeb;float: left;padding: 0 16px;float: left;width: 290px;">
+                <a style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;padding: 8px 0;font: 14px/40px PingFangSC-Regular,-apple-system,Simsun;" th:text="${book.chapter}" th:href="@{'/book/'+${onebook.bookid}+'/'+${book.bid}}"></a>
             </li>
 
         </ul>

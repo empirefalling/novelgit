@@ -11,7 +11,7 @@
 	margin-bottom: 10px;
 }
 .col2 img{
-	border: 2px solid #dcdcdc;
+	/*border: 2px solid #dcdcdc;*/
 	width: 102px; height: 130px;
 }
 .col2 p{
@@ -48,6 +48,9 @@ li, ol, ul {
 	list-style: none outside none;
 }
 
+h6 a:hover{
+	color: #ed4259;
+}
 
 .main-nav-wrap {
 	height: 40px;
@@ -109,6 +112,20 @@ li, ol, ul {
 	height: 38px;
 	padding: 0 29px
 }
+
+.main-nav-wrap .main-nav li.first a:hover i{
+	color: #ed4259;
+}
+
+.main-nav-wrap .main-nav li.first a{
+	background-color: #f7f6f2;
+}
+
+.main-nav-wrap .main-nav li.first a.even{
+	background-color: #fcfcfa;
+}
+
+
 .main-nav-wrap .main-nav li.first a {
 	height: 60px;
 	line-height: 60px;
@@ -213,3 +230,95 @@ a:hover{
 .dropdown-content a:hover {background-color: #ddd;}
 
 .dropdown:hover .dropdown-content {display: block;}
+
+.site{
+	/*border-bottom: 1px solid #ebebeb;*/
+	height: 29px;
+}
+.site a{
+	display: inline-block;
+	font: 12px/25px PingFangSC-Regular,-apple-system,Simsun;
+	height: 29px;
+	text-align: center;
+	width: 60px;
+}
+
+.site-item:hover{
+	color: #ed4259;
+}
+
+.site a.act{
+	background: #fff;
+	border-left: 1px solid #e6e6e6;
+	border-right: 1px solid #e6e6e6;
+	border-top: 2px solid #ed4259;
+	color: #ed4259;
+	font-weight: 700;
+	height: 28px;
+}
+
+.range-sidebar .selected, .range-sidebar .site, .select-list .work-filter {
+	border-bottom: 1px solid #ebebeb;
+}
+
+.sl-item {
+	display: none;
+	margin-top: 15px;
+}
+
+.list-act {
+	display: block;
+}
+
+
+.select-list .work-filter {
+	margin-bottom: 15px;
+	padding-bottom: 6px;
+}
+
+.select-list .work-filter h3 {
+	font-family: PingFangSC-Regular,-apple-system,Simsun;
+	font-size: 12px;
+	margin-bottom: 15px;
+}
+
+.range-sidebar .selected p, .select-list .sub-type, .select-list .work-filter ul {
+	*zoom: 1;
+	overflow: hidden;
+}
+
+.select-list .work-filter ul li {
+	float: left;
+	height: 20px;
+	margin-bottom: 8px;
+	margin-right: 8px;
+	padding: 0 4px;
+	text-align: center;
+}
+
+.select-list .work-filter ul li a {
+	display: block;
+	font: 12px/20px PingFangSC-Regular,-apple-system,Simsun;
+}
+
+.select-list .work-filter.tag {
+	border-bottom: none;
+}
+
+.work-filter ul{
+	padding: 0;
+}
+
+.work-filter ul li:hover a{
+	color: #ed4259;
+}
+
+a:link{
+	text-decoration:none;
+}
+a:visited{
+	text-decoration:none;
+}
+a:active{
+	text-decoration:none;
+}

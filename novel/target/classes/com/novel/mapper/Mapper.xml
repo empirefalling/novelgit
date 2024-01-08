@@ -8,31 +8,31 @@
         select bookid,bookname,author,tip from Book
     </select>
     <select id="getBook" resultType="Text">
-        select bookid,bid,chapter from Text where bookid=#{bookid}
+        select bookid,bid,chapter from Text1 where bookid=#{bookid}
     </select>
 
     <select id="getBookAndText" resultType="BookAndText">
-        select (b.img is not null) img,b.bookid,b.bookname,b.author,b.intro,b.tip,t.bid,t.chapter from Book b,Text t where bid in  (select max(bid) from Text group by(bookid)) and b.bookid=t.bookid
+        select (b.img is not null) img,b.bookid,b.bookname,b.author,b.intro,b.tip,t.bid,t.chapter from Book b,Text1 t where bid in  (select max(bid) from Text1 group by(bookid)) and b.bookid=t.bookid
     </select>
 
     <select id="getOneBook" resultType="Book">
         select (img is not null) img,bookid,bookname,author,intro,tip from Book where bookid=#{bookid}
     </select>
     <select id="getPage" resultType="Text">
-        select * from Text where bid=#{bid}
+        select * from Text1 where bid=#{bid}
     </select>
     <select id="searchoneBook" resultType="Book">
         select * from Book where bookname like #{value} or author like #{value} or bookid like #{value}
     </select>
 
     <select id="searchBook" resultType="BookAndText">
-        select * from (select (b.img is not null) img,b.bookid,b.bookname,b.author,b.intro,b.tip,t.bid,t.chapter from Book b,Text t where bid in  (select max(bid) from Text group by(bookid)) and b.bookid=t.bookid) t where t.bookname like #{value} or t.author like #{value} or t.bookid like #{value}
+        select * from (select (b.img is not null) img,b.bookid,b.bookname,b.author,b.intro,b.tip,t.bid,t.chapter from Book b,Text1 t where bid in  (select max(bid) from Text1 group by(bookid)) and b.bookid=t.bookid) t where t.bookname like #{value} or t.author like #{value} or t.bookid like #{value} or t.tip like #{value}
     </select>
     <insert id="addBook">
         insert into Book (bookid,bookname,tip,author,intro) values (#{bookid},#{bookname},#{tip},#{author},#{intro})
     </insert>
     <insert id="addPage">
-        insert into Text (bookid,chapter,page) values (#{bookid},#{chapter},#{page})
+        insert into Text1 (bookid,chapter,page) values (#{bookid},#{chapter},#{page})
     </insert>
     <select id="getMaxBookid" resultType="Book">
         select max(bookid) bookid from Book;
@@ -116,7 +116,7 @@
     </update>
 
     <select id="getText" resultType="Text">
-        select chapter,page from Text where bookid=#{bookid}
+        select chapter,page from Text1 where bookid=#{bookid}
     </select>
 
 </mapper>

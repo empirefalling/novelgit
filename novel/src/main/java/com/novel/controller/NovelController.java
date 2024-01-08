@@ -174,19 +174,20 @@ public class NovelController {
     //搜索
 //    @ResponseBody
     @RequestMapping(value = "/book/search/{pageNum}",method = RequestMethod.GET)
-    public String searchbook(@PathVariable("pageNum") Integer pageNum, Model model, HttpServletRequest request){
+    public String  searchbook(@PathVariable("pageNum") Integer pageNum, Model model, HttpServletRequest request){
 
         p=pageNum;
 
         if(value==null && request.getParameter("search")!=null){
             value = request.getParameter("search");
-            value = "%".concat(value) + "%";
+            value = "%".concat(value.replaceAll(" ","")) + "%";
             PageInfo<BookAndText> page = NovelService.searchBook(pageNum,value);
             model.addAttribute("page", page);
 //            return page;
-        } else if (value!=null && request.getParameter("search")!=null) {
+        }
+        else if (value!=null && request.getParameter("search")!=null) {
             value = request.getParameter("search");
-            value = "%".concat(value) + "%";
+            value = "%".concat(value.replaceAll(" ","")) + "%";
             PageInfo<BookAndText> page = NovelService.searchBook(pageNum,value);
             model.addAttribute("page", page);
 //            return page;
@@ -198,7 +199,8 @@ public class NovelController {
         }
         model.addAttribute("back",p);
 
-        return "searchbook";
+        return "bookhome";
+//        return page;
     }
 
     //跳转增加小说
@@ -660,6 +662,15 @@ public class NovelController {
 
     }
 
+    //分类索引
+
+    @RequestMapping(value="/book/all/{tip}/{num}")
+    public String tips(@PathVariable("num") Integer num, @PathVariable("tip") String tip,Model model){
+//        tip = "%".concat(tip.replaceAll(" ","")) + "%";
+        PageInfo<BookAndText> page = NovelService.searchBook(num,tip);
+        model.addAttribute("page",page);
+        return "bookhome";
+    }
 
 
 }

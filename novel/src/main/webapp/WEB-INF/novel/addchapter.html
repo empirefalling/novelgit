@@ -104,7 +104,7 @@
                     </span>
                 </div>
 
-                    <div th:id="'demo'+${bookStat.index+1}" class="row collapse" style="padding: 10px 0" >
+                    <div th:id="'demo'+${bookStat.index+1}" class="row collapse" style="padding: 10px 0;display: none;" >
                         <div class="row" style="margin: 0;padding: 10px 0;border-bottom: #ccc 1px solid ;border-top: #ccc 1px solid ; ">
                             <span class="col-lg-2">小说名称</span>
                             <span class="col-lg-2">作者</span>
@@ -145,10 +145,16 @@
                 $(this).parents("li").css({
                     "height" : "auto",
                 });
+                $(this).parents("li").children("div")[1].css({
+                    "display" : "block",
+                });
             }else {
                 $(this).html("展开");
                 $(this).parents("li").css({
-                    "height":"40px",
+                    "height":"auto",
+                });
+                $(this).parents("li").css({
+
                 });
             }
         });

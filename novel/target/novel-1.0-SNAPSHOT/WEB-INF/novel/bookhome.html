@@ -28,12 +28,15 @@
 
 
     <div style="width: 1200px;margin:  auto" id="id-images2" class="top marketing">
-        <div style="width: 200px;float: right;margin-top: 10px;">
+        <div class="topuser" style="width: 200px;float: right;margin-top: 10px;">
 
             <p style="float:right;line-height: 40px;" th:if="${user} != null" th:text="'用户名: '+${user.username}"></p>
             <p style="float:right;line-height: 40px;" th:if="${user} == null">游客</p>
-            <img th:src="@{/static/img/USER.jpg}"  style="border-radius: 50px;width:40px;margin:0 10px 10px 0;float:right;">
-            <a style="float:right;border: #ccc 2px solid;padding: 6px 12px;margin-top: 10px;" th:if="${user} != null" th:href="@{'/logout/'+${user.username}}">退出登录</a>
+            <img class="userimg" th:src="@{/static/img/USER.jpg}"  style="border-radius: 50px;width:40px;margin:0 10px 10px 0;float:right;">
+            <div class="logout">
+                <a style="float:right;border: #ccc 2px solid;padding: 6px 12px;margin-top: 10px;" th:if="${user} != null" th:href="@{'/logout/'+${user.username}}">退出登录</a>
+            </div>
+
     <!--        <form th:if="${user} != null" th:action="@{'/logout/'+${user.username}}">-->
     <!--            <input style="float: right;margin-top: 10px;" class="btn btn-default" type="submit" value="退出登录" >-->
     <!--        </form>-->
@@ -353,7 +356,7 @@
                         <li data-eid="qd_B47" data-tid="学生">
                             <a href="//www.qidian.com/all/tag%E5%AD%A6%E7%94%9F/">学生</a>
                         </li>
-                        <li class="more" id="unfold">
+                        <li class="more" id="unfold1">
                             <a href="javascript:" data-eid="qd_B48">
                                 展开
                                 <span>

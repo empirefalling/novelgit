@@ -12,9 +12,51 @@
         a:hover{
             text-decoration: none;
         }
+        a:active{
+            text-decoration: none;
+        }
         li{
             height: 80px;
         }
+
+        ol {
+            padding-left: 0;
+        }
+
+        img {
+            height: 68px;
+            width: 51px;
+            order: 1;
+        }
+
+        form p {
+            line-height: 32px;
+            padding-left: 10px;
+        }
+
+        label {
+            float: left;
+            padding: 6px 12px;
+            border: #ccc 1px solid;
+            border-radius: 0.25rem;
+            font-weight: 400;
+
+        }
+        form input{
+            margin-left: 10px;
+        }
+
+        label:hover{
+            background-color: #d4d4d4;
+        }
+
+        form label:active,
+        form button:active {
+            background-color: #d4d4d4;
+            /*color: white;*/
+
+        }
+
     </style>
 
 </head>
@@ -83,7 +125,7 @@
                 <span class="col-lg-2">更多</span>
             </div>
         </li>
-        <li class="list-group-item" style="height: 80px;border-top:#ccc 1px solid" th:each="book : ${books.book}">
+        <li class="list-group-item" style="height: auto;border-top:#ccc 1px solid" th:each="book : ${books.book}">
 
                 <div class="row" >
 
@@ -93,22 +135,33 @@
                     <span th:text="${book.author}" style="padding: 20px 15px;" class="col-lg-2"></span>
 
 
-                    <span class="col-lg-3">
-                        <span style="border: #ccc 1px solid;padding: 6px 12px;border-radius: 0.25rem;" class="morechart" data-toggle="collapse" th:data-target="'#demo'+${bookStat.index+1}">展开</span>
-                        <a th:href="@{'/book/addchapterpage/'+${book.author}+'/'+${book.bookid}}" style="margin-left: 10px;border: #ccc 1px solid;padding: 6px 12px;border-radius: 0.25rem;">更新章节</a>
+                    <span class="col-lg-4">
+                        <div style="width: 50%;float: left;">
+                            <a href="javascrapt:;" style="border: #ccc 1px solid;padding: 6px 12px;border-radius: 0.25rem;" class="morechart" data-toggle="collapse" th:data-target="'#demo'+${bookStat.index+1}">展开</a>
+                            <a th:href="@{'/book/addchapterpage/'+${book.author}+'/'+${book.bookid}}" style="margin-left: 10px;border: #ccc 1px solid;padding: 6px 12px;border-radius: 0.25rem;">更新章节</a>
 
-                        <form style="margin: 5px 0;" enctype="multipart/form-data" method="post" th:action="@{'/book/upload/'+${book.author}+'/'+${book.bookid}}">
-                            <input style="width: 200px;float: left;padding: 6px 12px;border:#ccc 1px solid;" multiple="multiple" class="btn btn-default" type="file" name="img" value="上传封面"/>
-                            <input style="float: left;padding: 6px 12px;border:#ccc 1px solid;" class="btn btn-default" type="submit" value="提交"/>
-                        </form>
+                            <form style="margin: 5px 0;" enctype="multipart/form-data" method="post" th:action="@{'/book/upload/'+${book.author}+'/'+${book.bookid}}">
+                                <label th:for="'img'+${bookStat.index+1}" style="margin-top: 5px;" class="img" onclick="up(this)">上传封面</label>
+                                <input th:id="'img'+${bookStat.index+1}" style="display: none;width: 200px;float: left;padding: 6px 12px;border:#ccc 1px solid;" multiple="multiple" class="btn btn-default" type="file" name="img" value="上传封面"/>
+                                <input style="margin-top: 5px;float: left;padding: 6px 12px;border:#ccc 1px solid;" onclick="add()" class="btn btn-default" type="submit" value="提交"/>
+                            </form>
+                        </div>
+                        <div style="width: 50%;float: right;">
+                            <div class="preview" style="width: 50%;float: left;">
+                                <img th:if="${book.img}==1" th:src="@{'/book/img/'+${book.bookid}}" />
+                                <p th:if="${book.img}==0" >未上传封面</p>
+                            </div>
+                            <div class="preview1" style="width: 40%;float: right;">
+                            </div>
+                        </div>
                     </span>
                 </div>
 
-                    <div th:id="'demo'+${bookStat.index+1}" class="row collapse" style="padding: 10px 0" >
+                    <div th:id="'demo'+${bookStat.index+1}" class="row collapse" style="padding: 10px 0;display: none;" >
                         <div class="row" style="margin: 0;padding: 10px 0;border-bottom: #ccc 1px solid ;border-top: #ccc 1px solid ; ">
                             <span class="col-lg-2">小说名称</span>
                             <span class="col-lg-2">作者</span>
-                            <span class="col-lg-2"></span>
+                            <span class="col-lg-2">章节名称</span>
                             <span class="col-lg-2">上传时间</span>
                             <span class="col-lg-2">状态</span>
                         </div>
@@ -116,8 +169,8 @@
 
                                 <div style="margin: 10px 0;">
                                     <span th:text="${book.bookname}" class="col-lg-2"></span>
+                                    <span th:text="${book.author}" class="col-lg-2"></span>
                                     <span th:text="${book1.chapter}" class="col-lg-2"></span>
-                                    <span class="col-lg-2"></span>
                                     <span th:text="${book1.addtime}" class="col-lg-2"></span>
                                     <span th:if="${book1.status == 'true'}" class="col-lg-2"><a style="border: #ccc 1px solid;padding: 6px 12px;border-radius: 0.25rem;" th:href="@{'/book/change/'+${book.author}+'/'+${book1.bid}}">修改</a></span>
                                     <span th:if="${book1.status != 'true'}" class="col-lg-2"><span style="border: #ccc 1px solid;padding: 6px 12px;border-radius: 0.25rem;">审核中</span></span>
@@ -142,17 +195,102 @@
             console.log($(this).html());
             if ($(this).html() == "展开"){
                 $(this).html("收起");
-                $(this).parents("li").css({
-                    "height" : "auto",
-                });
+                $(this).parents("li").children("div")[1].style. display = "block";
             }else {
                 $(this).html("展开");
-                $(this).parents("li").css({
-                    "height":"40px",
-                });
+                $(this).parents("li").children("div")[1].style. display = "none";
             }
         });
     });
     // $(function () { $('#demo1').collapse('show')});
+
+    function up(e){
+        input = e.nextElementSibling;
+        preview = e.parentNode.parentNode.parentNode.children[1].children[0];
+        preview1 = e.parentNode.parentNode.parentNode.children[1].children[1];
+        console.log(preview);
+        input.addEventListener("change", updateImageDisplay);
+    };
+    //
+    function updateImageDisplay() {
+        while (preview.children[0]) {
+            preview.removeChild(preview.children[0]);
+        }
+
+        curFiles = input.files;
+        if (curFiles.length === 0) {
+            const para = document.createElement("p");
+            para.textContent = "未选择上传文件";
+            preview1.appendChild(para);
+        } else {
+            // const list = document.createElement("ol");
+            // preview.appendChild(list);
+
+            for (const file of curFiles) {
+                // const listItem = document.createElement("li");
+
+                if (validFileType(file)) {
+
+                    const image = document.createElement("img");
+                    image.src = URL.createObjectURL(file);
+                    image.alt = image.title = file.name;
+
+                    preview.appendChild(image);
+
+                }
+
+                // list.appendChild(listItem);
+            }
+        }
+    }
+
+    // https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
+    const fileTypes = [
+        "image/apng",
+        "image/bmp",
+        "image/gif",
+        "image/jpeg",
+        "image/pjpeg",
+        "image/png",
+        "image/svg+xml",
+        "image/tiff",
+        "image/webp",
+        "image/x-icon",
+    ];
+
+    function validFileType(file) {
+        return fileTypes.includes(file.type);
+    }
+
+    function returnFileSize(number) {
+        if (number < 1024) {
+            return `${number} bytes`;
+        } else if (number >= 1024 && number < 1048576) {
+            return `${(number / 1024).toFixed(1)} KB`;
+        } else if (number >= 1048576) {
+            return `${(number / 1048576).toFixed(1)} MB`;
+        }
+    }
+
+    function add(){
+        // if (curFiles.length==0){
+        //     preview.removeChild(preview.children[0]);
+        //     const para = document.createElement("p");
+        //     para.textContent = "未选择上传文件";
+        //     preview.appendChild(para);
+        //     return false;
+        // }
+        //
+        // if (curFiles.length==1){
+            preview.removeChild(preview.children[0]);
+            const para = document.createElement("p");
+            para.append("封面上传成功!");
+            preview.replaceChildren(para);
+        //     return true;
+        // }
+
+    }
+
+
 </script>
 </html>

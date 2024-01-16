@@ -401,17 +401,17 @@ public class NovelController {
     //修改章节
 //    @ResponseBody
     @RequestMapping(value = "/book/updatepage/{user}/{bid}")
-    public String Change2(@PathVariable("user") String username,@PathVariable("bid") Integer bid, Model model, Text text) throws UnsupportedEncodingException {
+    public void Change2(@PathVariable("user") String username,@PathVariable("bid") Integer bid, Model model, Text text) throws UnsupportedEncodingException {
 
         String chapter = text.getChapter();
         String page = text.getPage();
 
         NovelService.UpdatePage(chapter,page,bid);
         NovelService.addRetreat("fales",bid);
-        String url = "/book/addchapter/"+ URLEncoder.encode(username,"UTF-8");
-        System.out.println(url);
-
-        return "redirect:"+url;
+//        String url = "/book/addchapter/"+ URLEncoder.encode(username,"UTF-8");
+//        System.out.println(url);
+//
+//        return "redirect:"+url;
     }
 
     //删除

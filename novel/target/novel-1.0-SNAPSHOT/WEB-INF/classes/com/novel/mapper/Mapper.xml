@@ -68,7 +68,7 @@
     </update>
 
     <select id="getShenheBook" resultType="Book">
-        select bookid,bookname,author,intro,tip from Book where author=#{value}
+        select (img is not null) img,bookid,bookname,author,intro,tip from Book where author=#{value}
     </select>
 
     <select id="getShenheList" resultType="Text">
